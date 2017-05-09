@@ -1,9 +1,10 @@
 import React from 'react';
 
-const Stat = () => {
+const Stat = ({name, data}) => {
   return (
     <div>
-
+      {name}
+      {data}
     </div>
   );
 }

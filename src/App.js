@@ -16,7 +16,7 @@ const url = `https://api.instagram.com/v1/users/${userId}/?access_token=${access
 
 class App extends Component {
   state = {
-    instaData: {}
+    instaData: null
   }
   componentWillMount() {
     // Instagram API request
@@ -40,20 +40,25 @@ class App extends Component {
 
   render() {
     const { instaData } = this.state;
-    return (
-      <div className="wrapper">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col">
-              <Admin data={instaData} />
-            </div>
-            <div className="col">
-              <StatsList />
+    const isData = instaData !== null;
+    if (isData) {
+      return (
+        <div className="wrapper">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col">
+                <Admin data={instaData} />
+              </div>
+              <div className="col">
+                <StatsList data={instaData} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return null;
+    }
   }
 }
 
