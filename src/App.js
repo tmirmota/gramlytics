@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import $ from 'jquery';
 import './App.css';
 
 
@@ -16,16 +16,29 @@ const url = `https://api.instagram.com/v1/users/${userId}/?access_token=${access
 
 class App extends Component {
   componentWillMount() {
-    axios.get(url, {
-      headers: {"Access-Control-Allow-Origin": "*"},
-    }).then(res => {
-        console.log(res);
-      });
+    // Instagram API request
+    $.ajax({
+      type: "GET",
+      url: url,
+      crossDomain: true,
+      success: function(response) {
+          console.log(response);
+
+          // $.each(response.data, function(index, obj) {
+          //     console.log(obj.images.low_resolution.url);
+          //
+          //     $('#instagram_feed').append(
+          //       "<li><a href='" + obj.link + "' target='_blank'><img src=" + obj.images.low_resolution.url + "/></a></li>"
+          //     );
+          // })
+      },
+      dataType: "jsonp" //set to JSONP, is a callback
+    });
   }
   render() {
     return (
       <div className="wrapper">
-        <div className="container">
+        <div className="container-fluid">
 
         </div>
       </div>
