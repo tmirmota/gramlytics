@@ -1,23 +1,36 @@
 import React, { Component } from 'react';
 
+// Material UI
+import Paper from 'material-ui/Paper';
+
 // Components
 import Stat from './Stat';
+
+// Styling
+const paperStyle = {
+  padding: '1rem'
+}
 
 class StatsList extends Component {
   render() {
     const { followed_by, follows, media } = this.props.data.counts;
     return (
-      <div className="row mt-3">
-        <div className="col">
-          <Stat name='Following' data={follows} backgroundColor="rgb(26, 205, 223)" />
+      <Paper style={paperStyle}>
+        <div>
+          <h2>Account Summary</h2>
+          <div className="row justify-content-md-center text-center">
+            <div className="col">
+              <Stat name='Total Posts' data={media} />
+            </div>
+            <div className="col">
+              <Stat name='Following' data={follows} />
+            </div>
+            <div className="col">
+              <Stat name='Followers' data={followed_by} />
+            </div>
+          </div>
         </div>
-        <div className="col">
-          <Stat name='Followers' data={followed_by} backgroundColor="#43cea2" />
-        </div>
-        <div className="col">
-          <Stat name='Posts' data={media} backgroundColor="#4ac4b2" />
-        </div>
-      </div>
+      </Paper>
     );
   }
 }

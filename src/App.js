@@ -36,7 +36,7 @@ class App extends Component {
   }
 
   requestInstaData() {
-    const { url, userId, accessToken } = this.state;
+    const { url } = this.state;
     // Request access to instagram data with token
     $.ajax({
       type: "GET",
@@ -64,21 +64,18 @@ class App extends Component {
       <MuiThemeProvider>
         <Router>
           <div>
-            {/* <Route exact path='/' component={Home} /> */}
             <Route path='/' render={() => (
               loggedIn ?
-                <Redirect
-                  to={`/dashboard/${instaData.username}`} />
+                <Redirect to={`/dashboard/${instaData.username}`} />
                 :
                 <Home />
             )} />
-            <Route
-              path='/dashboard/:user_name' render={() => (
-                loggedIn ?
-                  <Dashboard data={instaData} logout={this.logout} />
-                  :
-                  <Home />
-              )} />
+            <Route path='/dashboard/:username' render={() => (
+              loggedIn ?
+                <Dashboard data={instaData} logout={this.logout} />
+                :
+                <Redirect to='/' />
+            )} />
           </div>
         </Router>
       </MuiThemeProvider>

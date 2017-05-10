@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
 
 // Components
-import Admin from './Admin';
+import Nav from './Nav';
 import StatsList from './StatsList';
 
 class Dashboard extends Component {
   render() {
     const { data, logout } = this.props;
     return (
-      <div className="wrapper">
-        <div className="container">
-          <nav className="navbar navbar-light bg-faded">
-            <Admin data={data} logout={logout}/>
-          </nav>
-          <div>
-            <StatsList data={data} />
-          </div>
-        </div>
+      <div className="container-fluid">
+        <Nav data={data} logout={logout} />
+        <hr />
+        <StatsList data={data} />
       </div>
     );
   }
