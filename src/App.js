@@ -19,9 +19,8 @@ class App extends Component {
     accessToken: '',
     userId: '',
     url: ''
-
-
   }
+
   componentWillMount() {
     // Check the params for access token
     const uri = window.location.hash;
@@ -74,8 +73,12 @@ class App extends Component {
                 <Home />
             )} />
             <Route
-              path='/dashboard/:user_name'
-              component={() => <Dashboard data={instaData} logout={this.logout} />} />
+              path='/dashboard/:user_name' render={() => (
+                loggedIn ?
+                  <Dashboard data={instaData} logout={this.logout} />
+                  :
+                  <Home />
+              )} />
           </div>
         </Router>
       </MuiThemeProvider>

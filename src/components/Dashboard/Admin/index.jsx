@@ -9,9 +9,11 @@ class Admin extends Component {
     const { profile_picture, full_name } = this.props.data;
     const { logout } = this.props;
     return (
-      <div>
-        <ProfilePic url={profile_picture} name={full_name} />
-        <div className="text-center">
+      <div className="row">
+        <div className="col">
+          <ProfilePic url={profile_picture} name={full_name} />
+        </div>
+        <div className="col">
           <Link to='/' className="btn btn-primary" onClick={logout}>Log Out</Link>
         </div>
       </div>
