@@ -13,27 +13,50 @@ import Dashboard from './components/Dashboard';
 class App extends Component {
   state = {
     instaData: null,
-    loggedIn: false
+    loggedIn: false,
+
+    // Instagram account login info
+    accessToken: '',
+    userId: '',
+    url: ''
+
+
   }
   componentWillMount() {
+    // Check the params for access token
     const uri = window.location.hash;
     const isToken = uri.indexOf('access_token') > -1;
     if (isToken) {
       const accessToken = uri.replace('#access_token=', '');
       const userId = parseFloat(accessToken);
       const url = `https://api.instagram.com/v1/users/${userId}/?access_token=${accessToken}`;
-
-      // Instagram API request
-      $.ajax({
-        type: "GET",
-        url: url,
-        crossDomain: true,
-        success: function(response) {
-          this.setState({ instaData: response.data, loggedIn: true })
-        }.bind(this),
-        dataType: "jsonp" //set to JSONP, is a callback
+      this.setState({ accessToken, userId, url }, () => {
+        this.requestInstaData();
       });
     }
+  }
+
+  requestInstaData() {
+    const { url, userId, accessToken } = this.state;
+    // Request access to instagram data with token
+    $.ajax({
+      type: "GET",
+      url: url,
+      crossDomain: true,
+      success: function(response) {
+        this.setState({ instaData: response.data, loggedIn: true })
+      }.bind(this),
+      dataType: "jsonp" //set to JSONP, is a callback
+    });
+  }
+
+  logout = () => {
+    this.setSate({
+      loggedIn: false,
+      accessToken: '',
+      userId: '',
+      url: ''
+    });
   }
 
   render() {
@@ -42,16 +65,17 @@ class App extends Component {
       <MuiThemeProvider>
         <Router>
           <div>
+            {/* <Route exact path='/' component={Home} /> */}
             <Route path='/' render={() => (
               loggedIn ?
                 <Redirect
-                  to='/dashboard/:user_name' />
+                  to={`/dashboard/${instaData.username}`} />
                 :
                 <Home />
             )} />
             <Route
               path='/dashboard/:user_name'
-              component={() => <Dashboard data={instaData} logout={() => this.setState({ loggedIn: false })}/>} />
+              component={() => <Dashboard data={instaData} logout={this.logout} />} />
           </div>
         </Router>
       </MuiThemeProvider>
