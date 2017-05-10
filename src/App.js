@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import $ from 'jquery';
 import './App.css';
 
+// Material UI
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 // Components
-import Admin from './components/Admin';
-import StatsList from './components/StatsList';
+import Home from './components/Home';
+import Dashboard from './components/Dashboard';
 
 // Instagram API
 // const domain = 'https://api.instagram.com/v1/users/';
@@ -16,7 +20,10 @@ const url = `https://api.instagram.com/v1/users/${userId}/?access_token=${access
 
 class App extends Component {
   state = {
-    instaData: null
+    instaData: null,
+
+    // Instagram Account Information
+    userId: ''
   }
   componentWillMount() {
     // Instagram API request
@@ -43,18 +50,14 @@ class App extends Component {
     const isData = instaData !== null;
     if (isData) {
       return (
-        <div className="wrapper">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col">
-                <Admin data={instaData} />
-              </div>
-              <div className="col">
-                <StatsList data={instaData} />
-              </div>
-            </div>
-          </div>
-        </div>
+        <MuiThemeProvider>
+          <Router>
+            <Route exact path='/' component={Home} />
+            <Route
+              path='/dashboard/:userId'
+              component={() => <Dashboard data={instaData} />} />
+          </Router>
+        </MuiThemeProvider>
       );
     } else {
       return null;
