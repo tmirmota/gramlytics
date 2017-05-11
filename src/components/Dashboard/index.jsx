@@ -18,7 +18,7 @@ class Dashboard extends Component {
         <hr />
         <AccountSummary data={userInfo} />
         <hr />
-        <Likes rankedImgs={rankedImgs} />
+        <Likes rankedImgs={rankedImgs} recentImgs={recentImgs} />
       </div>
     );
   }

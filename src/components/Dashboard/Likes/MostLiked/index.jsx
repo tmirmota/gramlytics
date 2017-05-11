@@ -6,6 +6,7 @@ class MostLiked extends Component {
 
     return rankedImgs.map((img, index) => {
       const topFiveImg = index >= (rankedImgs.length -5);
+
       if (topFiveImg) {
         console.log(img);
         return (
@@ -20,9 +21,11 @@ class MostLiked extends Component {
   render() {
     return (
       <div>
-        <p className="lead">Posts that generated the most likes</p>
-        <div className="row">
-          {this.renderTopImgs()}
+        <div>
+          <p className="lead">Posts that generated the most likes</p>
+          <div className="row">
+            {this.renderTopImgs()}
+          </div>
         </div>
       </div>
     );
