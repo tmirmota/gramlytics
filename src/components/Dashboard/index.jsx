@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 // Components
 import Nav from './Nav';
-import StatsList from './StatsList';
+import AccountSummary from './AccountSummary';
+import Likes from './Likes';
 
 class Dashboard extends Component {
   render() {
-    const { data, logout } = this.props;
+    const { userInfo, recentImgs, logout } = this.props;
+    const rankedImgs = _.sortBy(recentImgs, [img => {
+      return img.likes.count;
+    }]);
     return (
       <div className="container-fluid">
-        <Nav data={data} logout={logout} />
+        <Nav data={userInfo} logout={logout} />
         <hr />
-        <StatsList data={data} />
+        <AccountSummary data={userInfo} />
+        <hr />
+        <Likes rankedImgs={rankedImgs} />
       </div>
     );
   }

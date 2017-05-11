@@ -12,13 +12,13 @@ import Dashboard from './components/Dashboard';
 
 class App extends Component {
   state = {
-    instaData: null,
+    userInfo: null,
+    recentImgs: null,
     loggedIn: false,
 
     // Instagram account login info
     accessToken: '',
-    userId: '',
-    url: ''
+    userId: ''
   }
 
   componentWillMount() {
@@ -28,22 +28,39 @@ class App extends Component {
     if (isToken) {
       const accessToken = uri.replace('#access_token=', '');
       const userId = parseFloat(accessToken);
-      const url = `https://api.instagram.com/v1/users/${userId}/?access_token=${accessToken}`;
-      this.setState({ accessToken, userId, url }, () => {
+
+      this.setState({ accessToken, userId }, () => {
         this.requestInstaData();
       });
     }
   }
 
   requestInstaData() {
-    const { url } = this.state;
-    // Request access to instagram data with token
+    const { userId, accessToken } = this.state;
+    const baseDomain = 'https://api.instagram.com/v1/';
+
+    // Get request urls
+    const userUrl = `${baseDomain}users/${userId}/?access_token=${accessToken}`;
+    const imgsUrl = `${baseDomain}users/${userId}/media/recent/?access_token=${accessToken}`;
+
+    // Request account information
     $.ajax({
       type: "GET",
-      url: url,
+      url: userUrl,
       crossDomain: true,
       success: function(response) {
-        this.setState({ instaData: response.data, loggedIn: true })
+        this.setState({ userInfo: response.data, loggedIn: true })
+      }.bind(this),
+      dataType: "jsonp" //set to JSONP, is a callback
+    });
+
+    // Request recent images
+    $.ajax({
+      type: "GET",
+      url: imgsUrl,
+      crossDomain: true,
+      success: function(response) {
+        this.setState({ recentImgs: response.data, loggedIn: true })
       }.bind(this),
       dataType: "jsonp" //set to JSONP, is a callback
     });
@@ -53,26 +70,28 @@ class App extends Component {
     this.setSate({
       loggedIn: false,
       accessToken: '',
-      userId: '',
-      url: ''
+      userId: ''
     });
   }
 
   render() {
-    const { instaData, loggedIn } = this.state;
+    const { userInfo, recentImgs, loggedIn } = this.state;
     return (
       <MuiThemeProvider>
         <Router>
           <div>
             <Route path='/' render={() => (
               loggedIn ?
-                <Redirect to={`/dashboard/${instaData.username}`} />
+                <Redirect to={`/dashboard/${userInfo.username}`} />
                 :
                 <Home />
             )} />
             <Route path='/dashboard/:username' render={() => (
               loggedIn ?
-                <Dashboard data={instaData} logout={this.logout} />
+                <Dashboard
+                  userInfo={userInfo}
+                  recentImgs={recentImgs}
+                  logout={this.logout} />
                 :
                 <Redirect to='/' />
             )} />

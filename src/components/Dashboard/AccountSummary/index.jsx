@@ -11,7 +11,7 @@ const paperStyle = {
   padding: '1rem'
 }
 
-class StatsList extends Component {
+class AccountSummary extends Component {
   render() {
     const { followed_by, follows, media } = this.props.data.counts;
     return (
@@ -35,4 +35,4 @@ class StatsList extends Component {
   }
 }
 
-export default StatsList;
+export default AccountSummary;
