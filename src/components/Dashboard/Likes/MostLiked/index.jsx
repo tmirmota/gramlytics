@@ -5,8 +5,7 @@ class MostLiked extends Component {
     const { rankedImgs } = this.props;
 
     return rankedImgs.map((img, index) => {
-      const topFiveImg = index >= (rankedImgs.length -5);
-
+      const topFiveImg = index < 5;
       if (topFiveImg) {
         console.log(img);
         return (

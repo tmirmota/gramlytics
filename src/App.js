@@ -12,8 +12,8 @@ import Dashboard from './components/Dashboard';
 
 class App extends Component {
   state = {
-    userInfo: null,
-    recentImgs: null,
+    userInfo: {},
+    recentImgs: [],
     loggedIn: false,
 
     // Instagram account login info
