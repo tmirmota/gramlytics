@@ -8,20 +8,21 @@ import Likes from './Likes';
 
 class Dashboard extends Component {
   render() {
+    // Dismount
     const { userInfo, recentImgs, loggedIn, logout } = this.props;
 
-    // Sort top images desc likes
+    // Sort top liked images desc
     const sortedImgs = _.sortBy(recentImgs, [img => {
       return img.likes.count;
     }]);
-    const rankedImgs = sortedImgs.reverse();
+    const rankedImgs = sortedImgs.reverse(); // Sorted top liked images desc
 
-    if (!loggedIn) {
-      return <i className="fa fa-spinner 3x"></i>;
-    } else {
+    if (loggedIn) {
       return (
         <div className="container-fluid">
-          <Nav data={userInfo} logout={logout} />
+          <header>
+            <Nav data={userInfo} logout={logout} />
+          </header>
           <hr />
           <AccountSummary data={userInfo} />
           <div className="mt-5">
@@ -29,6 +30,8 @@ class Dashboard extends Component {
           </div>
         </div>
       );
+    } else {
+      return <i className="fa fa-spinner 3x"></i>;
     }
   }
 }
