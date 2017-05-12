@@ -16,23 +16,14 @@ import {
 
 class Chart extends Component {
   render() {
-    const { recentImgs, setFeaturedImg } = this.props;
-    const updatedImgs = recentImgs.map(img => {
-      const update = _.update(img, 'created_time', secs => {
-        const date = new Date(secs * 1000);
-        const days = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
-        const day = days[date.getDay()];
-        return day;
-      })
-      return update;
-    })
+    const { chartImgs, setFeaturedImg } = this.props;
     return (
       <ResponsiveContainer>
-        <BarChart data={updatedImgs}>
+        <BarChart data={chartImgs}>
           <Bar
             type="monotone"
             dataKey="likes.count"
-            // onClick={setFeaturedImg}
+            onClick={setFeaturedImg}
             stroke="#8884d8"
             fill="#8884d8" />
           <XAxis dataKey="created_time" />

@@ -8,18 +8,25 @@ import FeaturedImg from './FeaturedImg';
 class Likes extends Component {
   componentWillMount() {
     const { recentImgs } = this.props;
-    this.setState({ featureImg: recentImgs[0] })  ;
+    this.setState({ featuredImg: recentImgs[0] })  ;
   }
-  setFeaturedImg = (featureImg, index) => {
-    this.setState({featureImg});
+  setFeaturedImg = (featuredImg, index) => {
+    this.setState({featuredImg});
   }
   render() {
-    const { rankedImgs, recentImgs } = this.props;
-    const { featureImg } = this.state;
+    const { rankedImgs, chartImgs } = this.props;
+    const { featuredImg } = this.state;
     return (
-      <div className="row">
-        <div className="col height-chart">
-          <Chart recentImgs={recentImgs} setFeaturedImg={this.setFeaturedImg} />
+      <div>
+        <div className="row">
+          <div className="col height-chart">
+            <Chart chartImgs={chartImgs} setFeaturedImg={this.setFeaturedImg} />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <FeaturedImg img={featuredImg} />
+          </div>
         </div>
       </div>
     );

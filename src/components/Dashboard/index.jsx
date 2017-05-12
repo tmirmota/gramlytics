@@ -17,6 +17,17 @@ class Dashboard extends Component {
     }]);
     const rankedImgs = sortedImgs.reverse(); // Sorted top liked images desc
 
+    // Change 'created_time' to day of the week
+    const chartImgs = recentImgs.map(img => {
+      const update = _.update(img, 'created_time', secs => {
+        const date = new Date(secs * 1000);
+        const days = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
+        const day = days[date.getDay()];
+        return day;
+      });
+      return update;
+    });
+
     if (loggedIn) {
       return (
         <div className="container">
@@ -28,7 +39,10 @@ class Dashboard extends Component {
           <hr className="pb-5"/>
 
           <div>
-            <Likes rankedImgs={rankedImgs} recentImgs={recentImgs} />
+            <Likes
+              rankedImgs={rankedImgs}
+              chartImgs={chartImgs}
+              recentImgs={recentImgs} />
           </div>
 
           <div>
