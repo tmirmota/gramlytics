@@ -24,7 +24,7 @@ const styles = {
   }
 }
 
-class Nav extends Component {
+class Navigation extends Component {
   state = {
     open: false
   }
@@ -52,29 +52,26 @@ class Nav extends Component {
     const { open, anchorEl } = this.state;
 
     return (
-      <nav className="row pt-3">
+      <nav className="row">
         <div className="col">
           <span className="display-4">Gramlytics</span>
         </div>
+
         <div className="col text-right">
+
           <IconButton
             onTouchTap={this.handleTouchTap}
             style={styles.iconButtonStyle}
             iconStyle={styles.avatarStyle}
             >
             <Avatar src={profile_picture} />
-            {/* <img
-              src={profile_picture}
-              alt={`${full_name}`}
-              className="rounded-circle"
-              width="60"
-            /> */}
           </IconButton>
+
           <Popover
             open={open}
             anchorEl={anchorEl}
-            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+            anchorOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'middle', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
             >
               <Link to='/' onClick={logout} style={styles.logoutBtn}>
@@ -83,10 +80,12 @@ class Nav extends Component {
                 </Menu>
               </Link>
           </Popover>
+
         </div>
+
       </nav>
     );
   }
 }
 
-export default Nav;
+export default Navigation;

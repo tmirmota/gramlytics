@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Likes.css';
 
 // Components
 import MostLiked from './MostLiked';
@@ -19,12 +20,12 @@ class Likes extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col">
+          <div className="col height-chart">
             <Chart recentImgs={recentImgs} setFeaturedImg={this.setFeaturedImg} />
           </div>
-          <div className="col">
+          {/* <div className="col">
             <FeaturedImg img={featureImg} />
-          </div>
+          </div> */}
         </div>
         <div className="row">
           <div className="col">

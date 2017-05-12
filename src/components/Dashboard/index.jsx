@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 
 // Components
-import Nav from './Nav';
+import Navigation from './Navigation';
 import AccountSummary from './AccountSummary';
 import Likes from './Likes';
 
 class Dashboard extends Component {
   render() {
-    // Dismount
+    // Dismount Props
     const { userInfo, recentImgs, loggedIn, logout } = this.props;
 
     // Sort top liked images desc
@@ -19,15 +19,25 @@ class Dashboard extends Component {
 
     if (loggedIn) {
       return (
-        <div className="container-fluid">
-          <header>
-            <Nav data={userInfo} logout={logout} />
+        <div className="container">
+
+          <header className="pt-3">
+            <Navigation data={userInfo} logout={logout} />
           </header>
-          <hr />
-          <AccountSummary data={userInfo} />
-          <div className="mt-5">
+
+          <hr className="pb-5"/>
+
+          <div>
             <Likes rankedImgs={rankedImgs} recentImgs={recentImgs} />
           </div>
+
+          <div>
+            <AccountSummary data={userInfo} />
+          </div>
+
+          <footer>
+
+          </footer>
         </div>
       );
     } else {
