@@ -10,26 +10,29 @@ import {
   Bar,
   XAxis,
   YAxis,
-  Tooltip,
-  CartesianGrid
+  Tooltip
 } from 'recharts';
 
 class Chart extends Component {
   render() {
-    const { recentImgs } = this.props;
-    const updateImgs = recentImgs.map(img => {
+    const { recentImgs, setFeaturedImg } = this.props;
+    const updatedImgs = recentImgs.map(img => {
       const update = _.update(img, 'created_time', secs => {
         const date = new Date(secs * 1000);
         const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
         const day = days[date.getDay()];
-        console.log(day);
         return day;
       })
       return update;
     })
     return (
-      <BarChart width={800} height={400} data={updateImgs}>
-        <Bar type="monotone" dataKey="likes.count" stroke="#8884d8" fill="#8884d8" />
+      <BarChart className="mw-100" width={800} height={400} data={updatedImgs}>
+        <Bar
+          type="monotone"
+          dataKey="likes.count"
+          onClick={setFeaturedImg}
+          stroke="#8884d8"
+          fill="#8884d8" />
         <XAxis dataKey="created_time" />
         <YAxis />
         <Tooltip />

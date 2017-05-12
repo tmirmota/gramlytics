@@ -60,7 +60,7 @@ class App extends Component {
       url: imgsUrl,
       crossDomain: true,
       success: function(response) {
-        this.setState({ recentImgs: response.data, loggedIn: true })
+        this.setState({ recentImgs: response.data })
       }.bind(this),
       dataType: "jsonp" //set to JSONP, is a callback
     });
@@ -91,6 +91,7 @@ class App extends Component {
                 <Dashboard
                   userInfo={userInfo}
                   recentImgs={recentImgs}
+                  loggedIn={loggedIn}
                   logout={this.logout} />
                 :
                 <Redirect to='/' />
