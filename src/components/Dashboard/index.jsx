@@ -32,7 +32,7 @@ class Dashboard extends Component {
           </div>
 
           <div>
-            <AccountSummary data={userInfo} />
+            <AccountSummary data={userInfo} rankedImgs={rankedImgs} />
           </div>
 
           <footer>

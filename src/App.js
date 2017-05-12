@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import $ from 'jquery';
+import _ from 'lodash';
 import './App.css';
 
 // Material UI
@@ -60,7 +61,8 @@ class App extends Component {
       url: imgsUrl,
       crossDomain: true,
       success: function(response) {
-        this.setState({ recentImgs: response.data })
+        const recentImgs = _.reverse(response.data);
+        this.setState({ recentImgs })
       }.bind(this),
       dataType: "jsonp" //set to JSONP, is a callback
     });

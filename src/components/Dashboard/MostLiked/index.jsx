@@ -19,11 +19,9 @@ class MostLiked extends Component {
   render() {
     return (
       <div>
-        <div>
-          <p className="lead">Posts that generated the most likes</p>
-          <div className="row">
-            {this.renderTopImgs()}
-          </div>
+        <p className="lead">Posts that generated the most likes</p>
+        <div className="row">
+          {this.renderTopImgs()}
         </div>
       </div>
     );

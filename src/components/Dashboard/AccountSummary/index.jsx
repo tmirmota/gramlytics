@@ -5,6 +5,7 @@ import Paper from 'material-ui/Paper';
 
 // Components
 import Stat from './Stat';
+import MostLiked from '../MostLiked';
 
 // Styling
 const paperStyle = {
@@ -14,6 +15,7 @@ const paperStyle = {
 class AccountSummary extends Component {
   render() {
     const { followed_by, follows, media } = this.props.data.counts;
+    const { rankedImgs } = this.props;
     return (
       <Paper style={paperStyle}>
         <div>
@@ -27,6 +29,9 @@ class AccountSummary extends Component {
             </div>
             <div className="col">
               <Stat name='Followers' data={followed_by} />
+            </div>
+            <div>
+              <MostLiked rankedImgs={rankedImgs}/>
             </div>
           </div>
         </div>
