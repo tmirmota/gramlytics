@@ -47,7 +47,7 @@ class Navigation extends Component {
     // Dismount Props
     const { logout } = this.props;
     // Dismount Props Data
-    const { profile_picture, full_name, username } = this.props.data;
+    const { profile_picture } = this.props.data;
     // Dismount State
     const { open, anchorEl } = this.state;
 

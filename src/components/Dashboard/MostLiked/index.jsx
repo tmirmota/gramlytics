@@ -12,7 +12,7 @@ class MostLiked extends Component {
             <p><i className="fa fa-heart-o"></i> {img.likes.count}</p>
           </div>
         );
-      }
+      };
     });
   }
 
