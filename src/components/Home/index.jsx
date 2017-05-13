@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './home.css';
-import * as firebase from 'firebase';
 
 class Home extends Component {
   state = {
@@ -27,15 +26,6 @@ class Home extends Component {
         </div>
       </div>
     );
-  }
-  componentDidMount() {
-    const db = firebase.database();
-    const speedRef = db.ref().child('speed');
-    console.log(speedRef);
-    speedRef.on('value', snap => {
-      console.log(3);
-      this.setState({ speed: snap.val() });
-    });
   }
 }
 
