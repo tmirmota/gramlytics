@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import './home.css';
 
 class Home extends Component {
-  state = {
-    speed: 10
-  }
   onSignInButtonClick() {
     window.open('/redirect', 'firebaseAuth', 'height=315,width=400')
   };
@@ -21,7 +18,6 @@ class Home extends Component {
               <i className="fa fa-instagram pr-2"></i>
               Instagram Login
             </a>
-            <p>{this.state.speed}</p>
           </div>
         </div>
       </div>
