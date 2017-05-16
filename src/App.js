@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import { firebaseAuth } from './config/constants';
 import $ from 'jquery';
 import _ from 'lodash';
@@ -7,7 +6,6 @@ import './App.css';
 // Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // Components
-import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 
 export default class App extends Component {
@@ -79,26 +77,11 @@ export default class App extends Component {
     const { userInfo, recentImgs, loggedIn } = this.state;
     return (
       <MuiThemeProvider>
-        <Router>
-          <div>
-            <Route path='/' render={() => (
-              loggedIn ?
-                <Redirect to={`/dashboard/${userInfo.username}`} />
-                :
-                <Home />
-            )} />
-            <Route path='/dashboard/:username' render={() => (
-              loggedIn ?
-                <Dashboard
-                  userInfo={userInfo}
-                  recentImgs={recentImgs}
-                  loggedIn={loggedIn}
-                  logout={this.logout} />
-                :
-                <Redirect to='/' />
-            )} />
-          </div>
-        </Router>
+        <Dashboard
+          userInfo={userInfo}
+          recentImgs={recentImgs}
+          loggedIn={loggedIn}
+          logout={this.logout} />
       </MuiThemeProvider>
     );
   }
