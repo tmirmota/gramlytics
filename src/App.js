@@ -10,14 +10,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 
-function PrivateRoute ({component: Component, authed, ...rest}) {
-  return (
-    <Route
-      {...rest}
-      render={(porps) => authed === true}
-  );
-}
-
 export default class App extends Component {
   state = {
     userInfo: {},
@@ -51,28 +43,28 @@ export default class App extends Component {
     const userUrl = `${baseDomain}users/${userId}/?access_token=${accessToken}`;
     const imgsUrl = `${baseDomain}users/${userId}/media/recent/?access_token=${accessToken}`;
 
-    // // Request account information
-    // $.ajax({
-    //   type: "GET",
-    //   url: userUrl,
-    //   crossDomain: true,
-    //   success: function(response) {
-    //     this.setState({ userInfo: response.data, loggedIn: true })
-    //   }.bind(this),
-    //   dataType: "jsonp" //set to JSONP, is a callback
-    // });
-    //
-    // // Request recent images
-    // $.ajax({
-    //   type: "GET",
-    //   url: imgsUrl,
-    //   crossDomain: true,
-    //   success: function(response) {
-    //     const recentImgs = _.reverse(response.data);
-    //     this.setState({ recentImgs })
-    //   }.bind(this),
-    //   dataType: "jsonp" //set to JSONP, is a callback
-    // });
+    // Request account information
+    $.ajax({
+      type: "GET",
+      url: userUrl,
+      crossDomain: true,
+      success: function(response) {
+        this.setState({ userInfo: response.data, loggedIn: true })
+      }.bind(this),
+      dataType: "jsonp" //set to JSONP, is a callback
+    });
+
+    // Request recent images
+    $.ajax({
+      type: "GET",
+      url: imgsUrl,
+      crossDomain: true,
+      success: function(response) {
+        const recentImgs = _.reverse(response.data);
+        this.setState({ recentImgs })
+      }.bind(this),
+      dataType: "jsonp" //set to JSONP, is a callback
+    });
   }
 
   logout = () => {
