@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import $ from 'jquery';
 import _ from 'lodash';
 import './App.css';
@@ -8,10 +8,9 @@ import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // Components
-import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 
-class App extends Component {
+export default class App extends Component {
   state = {
     userInfo: {},
     recentImgs: [],
@@ -30,10 +29,26 @@ class App extends Component {
       const accessToken = uri.replace('#access_token=', '');
       const userId = parseFloat(accessToken);
 
+      // Set accessToken / userId and then request data
       this.setState({ accessToken, userId }, () => {
         this.requestInstaData();
       });
     }
+  }
+
+  render() {
+    const { userInfo, recentImgs, loggedIn } = this.state;
+    return (
+      <MuiThemeProvider>
+        <div>
+          <Dashboard
+            userInfo={userInfo}
+            recentImgs={recentImgs}
+            loggedIn={loggedIn}
+            logout={this.logout} />
+        </div>
+      </MuiThemeProvider>
+    );
   }
 
   requestInstaData() {
@@ -52,7 +67,7 @@ class App extends Component {
       success: function(response) {
         this.setState({ userInfo: response.data, loggedIn: true })
       }.bind(this),
-      dataType: "jsonp" //set to JSONP, is a callback
+      dataType: "jsonp"
     });
 
     // Request recent images
@@ -64,45 +79,14 @@ class App extends Component {
         const recentImgs = _.reverse(response.data);
         this.setState({ recentImgs })
       }.bind(this),
-      dataType: "jsonp" //set to JSONP, is a callback
+      dataType: "jsonp"
     });
   }
-
   logout = () => {
-    this.setSate({
+    this.setState({
       loggedIn: false,
       accessToken: '',
       userId: ''
     });
   }
-
-  render() {
-    const { userInfo, recentImgs, loggedIn } = this.state;
-    return (
-      <MuiThemeProvider>
-        <Router>
-          <div>
-            <Route path='/' render={() => (
-              loggedIn ?
-                <Redirect to={`/dashboard/${userInfo.username}`} />
-                :
-                <Home />
-            )} />
-            <Route path='/dashboard/:username' render={() => (
-              loggedIn ?
-                <Dashboard
-                  userInfo={userInfo}
-                  recentImgs={recentImgs}
-                  loggedIn={loggedIn}
-                  logout={this.logout} />
-                :
-                <Redirect to='/' />
-            )} />
-          </div>
-        </Router>
-      </MuiThemeProvider>
-    );
-  }
 }
-
-export default App;

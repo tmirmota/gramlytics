@@ -14,7 +14,7 @@ class Likes extends Component {
     this.setState({featuredImg});
   }
   render() {
-    const { rankedImgs, chartImgs } = this.props;
+    const { chartImgs } = this.props;
     const { featuredImg } = this.state;
     return (
       <div>
