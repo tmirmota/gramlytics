@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Router from './router';
 import './index.css';
 
 // Needed for Material UI
@@ -8,6 +8,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 ReactDOM.render(
-  <App />,
+  <Router />,
   document.getElementById('root')
 );
