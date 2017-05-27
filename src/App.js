@@ -38,13 +38,20 @@ export default class App extends Component {
 
 
   render() {
-    const { userInfo, recentImgs, loggedIn } = this.state;
+    const {
+      userInfo,
+      recentImgs,
+      featuredImg,
+      loggedIn
+    } = this.state;
     return (
       <MuiThemeProvider>
         <div>
           <Dashboard
             userInfo={userInfo}
             recentImgs={recentImgs}
+            setFeaturedImg={this.setFeaturedImg}
+            featuredImg={featuredImg}
             loggedIn={loggedIn}
             logout={this.logout} />
         </div>
@@ -65,7 +72,10 @@ export default class App extends Component {
       url: userUrl,
       crossDomain: true,
       success: function(response) {
-        this.setState({ userInfo: response.data, loggedIn: true })
+        this.setState({
+          userInfo: response.data,
+          loggedIn: true
+        })
       }.bind(this),
       dataType: "jsonp"
     });
@@ -77,7 +87,10 @@ export default class App extends Component {
       crossDomain: true,
       success: function(response) {
         const recentImgs = _.reverse(response.data);
-        this.setState({ recentImgs })
+        this.setState({
+          recentImgs,
+          featuredImg: recentImgs[0]
+        })
       }.bind(this),
       dataType: "jsonp"
     });
@@ -88,5 +101,8 @@ export default class App extends Component {
       accessToken: '',
       userId: ''
     });
+  }
+  setFeaturedImg = (featuredImg, index) => {
+    this.setState({featuredImg});
   }
 }

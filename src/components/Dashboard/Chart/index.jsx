@@ -14,11 +14,16 @@ import {
   Tooltip
 } from 'recharts';
 
+// Styles
+const style = {
+  height: '300'
+}
+
 class Chart extends Component {
   render() {
     const { chartImgs, setFeaturedImg } = this.props;
     return (
-      <ResponsiveContainer>
+      <ResponsiveContainer style={style}>
         <BarChart data={chartImgs}>
           <Bar
             type="monotone"

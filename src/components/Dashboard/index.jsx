@@ -4,12 +4,25 @@ import _ from 'lodash';
 // Components
 import Navigation from './Navigation';
 import AccountSummary from './AccountSummary';
-import Likes from './Likes';
+import Chart from './Chart';
+import FeaturedImg from './FeaturedImg';
+
+// Styles
+const style = {
+  height: 200
+}
 
 class Dashboard extends Component {
   render() {
     // Dismount Props
-    const { userInfo, recentImgs, loggedIn, logout } = this.props;
+    const {
+      userInfo,
+      recentImgs,
+      setFeaturedImg,
+      featuredImg,
+      loggedIn,
+      logout
+     } = this.props;
 
     // Sort top liked images desc
     const sortedImgs = _.sortBy(recentImgs, [img => {
@@ -37,14 +50,18 @@ class Dashboard extends Component {
           </header>
 
           <hr className="pb-5"/>
-            <Likes
-              rankedImgs={rankedImgs}
-              chartImgs={chartImgs}
-              recentImgs={recentImgs} />
 
-          <div>
-            <AccountSummary data={userInfo} rankedImgs={rankedImgs} />
+          <div style={style}>
+            <Chart
+              chartImgs={chartImgs} setFeaturedImg={setFeaturedImg} />
           </div>
+
+
+          <FeaturedImg img={featuredImg} />
+
+          <AccountSummary
+            data={userInfo}
+            rankedImgs={rankedImgs} />
 
         </div>
       );
