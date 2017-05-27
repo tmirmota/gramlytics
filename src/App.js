@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import $ from 'jquery';
 import _ from 'lodash';
 import './App.css';
@@ -10,10 +9,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // Components
 import Dashboard from './components/Dashboard';
 
-export default class App extends Component {
+class App extends Component {
   state = {
     userInfo: {},
     recentImgs: [],
+    chartImgs: [],
     loggedIn: false,
 
     // Instagram account login info
@@ -36,25 +36,41 @@ export default class App extends Component {
     window.location.hash = '';
   }
 
-
   render() {
     const {
       userInfo,
       recentImgs,
+      chartImgs,
       featuredImg,
       loggedIn
     } = this.state;
+
+    // Change 'created_time' to day of the week
+    const chartImgsIsEmpty = chartImgs.length === 0;
+    if (chartImgsIsEmpty) {
+      const chartImgs = recentImgs.map(img => {
+        const update = _.update(img, 'created_time', secs => {
+          const date = new Date(secs * 1000);
+          const days = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
+          const day = days[date.getDay()];
+          return day;
+        });
+        return update;
+      });
+      this.setState({ chartImgs });
+    }
+
+
     return (
       <MuiThemeProvider>
-        <div>
           <Dashboard
             userInfo={userInfo}
             recentImgs={recentImgs}
+            chartImgs={chartImgs}
             setFeaturedImg={this.setFeaturedImg}
             featuredImg={featuredImg}
             loggedIn={loggedIn}
             logout={this.logout} />
-        </div>
       </MuiThemeProvider>
     );
   }
@@ -106,3 +122,5 @@ export default class App extends Component {
     this.setState({featuredImg});
   }
 }
+
+export default App;

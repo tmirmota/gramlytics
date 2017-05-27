@@ -8,8 +8,10 @@ import Chart from './Chart';
 import FeaturedImg from './FeaturedImg';
 
 // Styles
-const style = {
-  height: 200
+const styles = {
+  chart: {
+    height: 200
+  }
 }
 
 class Dashboard extends Component {
@@ -18,6 +20,7 @@ class Dashboard extends Component {
     const {
       userInfo,
       recentImgs,
+      chartImgs,
       setFeaturedImg,
       featuredImg,
       loggedIn,
@@ -30,17 +33,6 @@ class Dashboard extends Component {
     }]);
     const rankedImgs = sortedImgs.reverse(); // Sorted top liked images desc
 
-    // Change 'created_time' to day of the week
-    const chartImgs = recentImgs.map(img => {
-      const update = _.update(img, 'created_time', secs => {
-        const date = new Date(secs * 1000);
-        const days = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
-        const day = days[date.getDay()];
-        return day;
-      });
-      return update;
-    });
-
     if (loggedIn) {
       return (
         <div className="container">
@@ -51,11 +43,11 @@ class Dashboard extends Component {
 
           <hr className="pb-5"/>
 
-          <div style={style}>
+          <div style={styles.chart}>
             <Chart
-              chartImgs={chartImgs} setFeaturedImg={setFeaturedImg} />
+              chartImgs={chartImgs}
+              setFeaturedImg={setFeaturedImg} />
           </div>
-
 
           <FeaturedImg img={featuredImg} />
 
