@@ -37,21 +37,15 @@ class Dashboard extends Component {
           </header>
 
           <hr className="pb-5"/>
-
-          <div>
             <Likes
               rankedImgs={rankedImgs}
               chartImgs={chartImgs}
               recentImgs={recentImgs} />
-          </div>
 
           <div>
             <AccountSummary data={userInfo} rankedImgs={rankedImgs} />
           </div>
 
-          <footer>
-
-          </footer>
         </div>
       );
     } else {

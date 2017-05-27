@@ -10,7 +10,7 @@ export default class Router extends Component {
       <BrowserRouter>
         <div>
           <Route exact path='/' component={Home} />
-          <Route path='/instagram-callback' component={App} />
+          <Route path='/dashboard' component={App} />
         </div>
       </BrowserRouter>
     );

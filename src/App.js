@@ -30,11 +30,12 @@ export default class App extends Component {
       const userId = parseFloat(accessToken);
 
       // Set accessToken / userId and then request data
-      this.setState({ accessToken, userId }, () => {
-        this.requestInstaData();
-      });
+      this.requestInstaData(accessToken, userId);
+
     }
+    window.location.hash = '';
   }
+
 
   render() {
     const { userInfo, recentImgs, loggedIn } = this.state;
@@ -51,8 +52,7 @@ export default class App extends Component {
     );
   }
 
-  requestInstaData() {
-    const { userId, accessToken } = this.state;
+  requestInstaData(accessToken, userId) {
     const baseDomain = 'https://api.instagram.com/v1/';
 
     // Get request urls

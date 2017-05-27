@@ -4,7 +4,7 @@ import './home.css';
 const Home = () => {
   const baseUrl = 'https://api.instagram.com/oauth/authorize/?';
   const clientId = 'da308c7a4fd74a8ca9456eef52fc9c0d';
-  const redirectUrl = 'http://localhost:3000/instagram-callback';
+  const redirectUrl = 'http://localhost:3000/dashboard';
   const url = `${baseUrl}client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=token`;;
   return (
     <div className="container-fluid">
