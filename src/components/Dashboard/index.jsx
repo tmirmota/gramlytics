@@ -15,15 +15,16 @@ const styles = {
 }
 
 class Dashboard extends Component {
+  state = {
+    chartImgs: []
+  }
   render() {
     // Dismount Props
     const {
       userInfo,
       recentImgs,
-      chartImgs,
       setFeaturedImg,
       featuredImg,
-      loggedIn,
       logout
      } = this.props;
 
@@ -33,7 +34,21 @@ class Dashboard extends Component {
     }]);
     const rankedImgs = sortedImgs.reverse(); // Sorted top liked images desc
 
-    if (loggedIn) {
+    // Change 'created_time' to day of the week
+    const chartImgsIsEmpty = this.state.chartImgs.length === 0;
+    if (chartImgsIsEmpty) {
+      const chartImgs = recentImgs.map(img => {
+        const update = _.update(img, 'created_time', secs => {
+          const date = new Date(secs * 1000);
+          const days = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
+          const day = days[date.getDay()];
+          return day;
+        });
+        return update;
+      });
+      this.setState({ chartImgs });
+    }
+
       return (
         <div className="container">
 
@@ -45,7 +60,7 @@ class Dashboard extends Component {
 
           <div style={styles.chart}>
             <Chart
-              chartImgs={chartImgs}
+              chartImgs={this.state.chartImgs}
               setFeaturedImg={setFeaturedImg} />
           </div>
 
@@ -57,9 +72,6 @@ class Dashboard extends Component {
 
         </div>
       );
-    } else {
-      return <i className="fa fa-spinner 3x"></i>;
-    }
   }
 }
 

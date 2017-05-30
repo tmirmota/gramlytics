@@ -13,7 +13,6 @@ class App extends Component {
   state = {
     userInfo: {},
     recentImgs: [],
-    chartImgs: [],
     loggedIn: false,
 
     // Instagram account login info
@@ -40,39 +39,26 @@ class App extends Component {
     const {
       userInfo,
       recentImgs,
-      chartImgs,
       featuredImg,
       loggedIn
     } = this.state;
 
-    // Change 'created_time' to day of the week
-    const chartImgsIsEmpty = chartImgs.length === 0;
-    if (chartImgsIsEmpty) {
-      const chartImgs = recentImgs.map(img => {
-        const update = _.update(img, 'created_time', secs => {
-          const date = new Date(secs * 1000);
-          const days = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
-          const day = days[date.getDay()];
-          return day;
-        });
-        return update;
-      });
-      this.setState({ chartImgs });
-    }
-
-
     return (
-      <MuiThemeProvider>
-          <Dashboard
-            userInfo={userInfo}
-            recentImgs={recentImgs}
-            chartImgs={chartImgs}
-            setFeaturedImg={this.setFeaturedImg}
-            featuredImg={featuredImg}
-            loggedIn={loggedIn}
-            logout={this.logout} />
-      </MuiThemeProvider>
-    );
+      loggedIn ? (
+        <MuiThemeProvider>
+            <Dashboard
+              userInfo={userInfo}
+              recentImgs={recentImgs}
+              setFeaturedImg={this.setFeaturedImg}
+              featuredImg={featuredImg}
+              logout={this.logout} />
+        </MuiThemeProvider>
+      ) : (
+        <div>
+          false
+        </div>
+      )
+    )
   }
 
   requestInstaData(accessToken, userId) {
@@ -89,8 +75,7 @@ class App extends Component {
       crossDomain: true,
       success: function(response) {
         this.setState({
-          userInfo: response.data,
-          loggedIn: true
+          userInfo: response.data
         })
       }.bind(this),
       dataType: "jsonp"
@@ -105,7 +90,8 @@ class App extends Component {
         const recentImgs = _.reverse(response.data);
         this.setState({
           recentImgs,
-          featuredImg: recentImgs[0]
+          featuredImg: recentImgs[0],
+          loggedIn: true
         })
       }.bind(this),
       dataType: "jsonp"
