@@ -11,6 +11,7 @@ import {
   Bar,
   XAxis,
   YAxis,
+  CartesianGrid,
   Tooltip
 } from 'recharts';
 
@@ -19,15 +20,17 @@ class Chart extends Component {
     const { chartImgs, setFeaturedImg } = this.props;
     return (
       <ResponsiveContainer>
-        <BarChart data={chartImgs}>
+        <BarChart data={chartImgs} margin={{top: 20}}>
           <Bar
             type="monotone"
             dataKey="likes.count"
             onClick={setFeaturedImg}
-            stroke="#8884d8"
-            fill="#8884d8" />
-          <XAxis dataKey="created_time" />
-          <YAxis />
+            stroke="#c2bff4"
+            fill="#8884d8"
+          />
+          <CartesianGrid vertical={false} />
+          <XAxis tickLine={false} axisLine={false} dataKey="created_time" />
+          <YAxis tickLine={false} axisLine={false} />
           <Tooltip content={<CustomToolTip />} />
         </BarChart>
       </ResponsiveContainer>

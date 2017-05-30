@@ -10,7 +10,7 @@ import FeaturedImg from './FeaturedImg';
 // Styles
 const styles = {
   chart: {
-    height: 200
+    height: 400
   }
 }
 
@@ -40,7 +40,7 @@ class Dashboard extends Component {
       const chartImgs = recentImgs.map(img => {
         const update = _.update(img, 'created_time', secs => {
           const date = new Date(secs * 1000);
-          const days = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
+          const days = ['Sun','Mon','Tues','Wed','Thurs','Fri','Sat'];
           const day = days[date.getDay()];
           return day;
         });

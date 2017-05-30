@@ -55,7 +55,7 @@ class App extends Component {
         </MuiThemeProvider>
       ) : (
         <div>
-          false
+          <a href="/" className="btn btn-primary">Go Home</a>
         </div>
       )
     )
