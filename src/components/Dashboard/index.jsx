@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
+// Material UI
+import Paper from 'material-ui/Paper';
+
 // Components
 import Navigation from './Navigation';
 import AccountSummary from './AccountSummary';
 import Chart from './Chart';
 import FeaturedImg from './FeaturedImg';
+import MostLiked from './MostLiked';
 
 // Styles
 const styles = {
@@ -50,7 +54,7 @@ class Dashboard extends Component {
     }
 
       return (
-        <div className="container">
+        <div className="container-fluid">
 
           <header className="pt-3">
             <Navigation data={userInfo} logout={logout} />
@@ -58,17 +62,27 @@ class Dashboard extends Component {
 
           <hr className="pb-5"/>
 
-          <div style={styles.chart}>
-            <Chart
-              chartImgs={this.state.chartImgs}
-              setFeaturedImg={setFeaturedImg} />
+          <div className="row">
+            <div className="col">
+              <AccountSummary
+                data={userInfo}
+                rankedImgs={rankedImgs} />
+            </div>
           </div>
 
-          <FeaturedImg img={featuredImg} />
 
-          <AccountSummary
-            data={userInfo}
-            rankedImgs={rankedImgs} />
+          <div className="row">
+            <div className="col" style={styles.chart}>
+              <Chart
+                chartImgs={this.state.chartImgs}
+                setFeaturedImg={setFeaturedImg} />
+            </div>
+            <div className="col">
+              <FeaturedImg img={featuredImg} />
+            </div>
+          </div>
+
+          <MostLiked rankedImgs={rankedImgs} />
 
         </div>
       );

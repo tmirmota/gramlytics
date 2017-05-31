@@ -25,8 +25,8 @@ class Chart extends Component {
             type="monotone"
             dataKey="likes.count"
             onClick={setFeaturedImg}
-            stroke="#c2bff4"
-            fill="#8884d8"
+            stroke="#03A9F4"
+            fill="#B3E5FC"
           />
           <CartesianGrid vertical={false} />
           <XAxis tickLine={false} axisLine={false} dataKey="created_time" />

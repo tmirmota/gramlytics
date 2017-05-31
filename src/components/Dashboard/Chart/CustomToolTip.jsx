@@ -7,8 +7,8 @@ class CustomToolTip extends Component {
     if (imgArr) {
       const img = imgArr.payload;
       return (
-        <div className="floating-thumbnail p-2 text-center">
-          <img src={img.images.thumbnail.url} alt="Featured thumbnail" width="50" className="rounded"/>
+        <div className="floating-thumbnail p-2 text-center rounded">
+          <img src={img.images.thumbnail.url} alt="Featured thumbnail" width="75" />
           <div>
             <span><i className="fa fa-heart text-danger"></i> {img.likes.count}</span>
           </div>
