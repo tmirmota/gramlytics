@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
-// Material UI
-import Paper from 'material-ui/Paper';
-
 // Components
 import Navigation from './Navigation';
 import AccountSummary from './AccountSummary';
@@ -54,19 +51,17 @@ class Dashboard extends Component {
     }
 
       return (
-        <div className="container-fluid">
+        <div className="container">
 
           <header className="pt-3">
             <Navigation data={userInfo} logout={logout} />
           </header>
 
-          <hr className="pb-5"/>
+          <hr className="pb-3"/>
 
-          <div className="row">
+          <div className="row justify-content-sm-center mb-3">
             <div className="col">
-              <AccountSummary
-                data={userInfo}
-                rankedImgs={rankedImgs} />
+              <FeaturedImg img={featuredImg} />
             </div>
           </div>
 
@@ -77,12 +72,14 @@ class Dashboard extends Component {
                 chartImgs={this.state.chartImgs}
                 setFeaturedImg={setFeaturedImg} />
             </div>
+          </div>
+
+          <div className="row">
             <div className="col">
-              <FeaturedImg img={featuredImg} />
+              <MostLiked rankedImgs={rankedImgs} />
             </div>
           </div>
 
-          <MostLiked rankedImgs={rankedImgs} />
 
         </div>
       );
