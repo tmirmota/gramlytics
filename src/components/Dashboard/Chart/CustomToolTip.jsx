@@ -7,8 +7,13 @@ class CustomToolTip extends Component {
     if (imgArr) {
       const img = imgArr.payload;
       return (
+<<<<<<< HEAD:src/components/Dashboard/Likes/Chart/CustomToolTip.jsx
         <div className="floating-thumbnail p-2 text-center">
           <img src={img.images.thumbnail.url} alt="Featured thumbnail" width="50" className="rounded"/>
+=======
+        <div className="floating-thumbnail p-2 text-center rounded">
+          <img src={img.images.thumbnail.url} alt="Featured thumbnail" width="75" />
+>>>>>>> client-side-app:src/components/Dashboard/Chart/CustomToolTip.jsx
           <div>
             <span><i className="fa fa-heart text-danger"></i> {img.likes.count}</span>
           </div>

@@ -4,12 +4,30 @@ import _ from 'lodash';
 // Components
 import Navigation from './Navigation';
 import AccountSummary from './AccountSummary';
-import Likes from './Likes';
+import Chart from './Chart';
+import FeaturedImg from './FeaturedImg';
+import MostLiked from './MostLiked';
+
+// Styles
+const styles = {
+  chart: {
+    height: 400
+  }
+}
 
 class Dashboard extends Component {
+  state = {
+    chartImgs: []
+  }
   render() {
     // Dismount Props
-    const { userInfo, recentImgs, loggedIn, logout } = this.props;
+    const {
+      userInfo,
+      recentImgs,
+      setFeaturedImg,
+      featuredImg,
+      logout
+     } = this.props;
 
     // Sort top liked images desc
     const sortedImgs = _.sortBy(recentImgs, [img => {
@@ -18,17 +36,20 @@ class Dashboard extends Component {
     const rankedImgs = sortedImgs.reverse(); // Sorted top liked images desc
 
     // Change 'created_time' to day of the week
-    const chartImgs = recentImgs.map(img => {
-      const update = _.update(img, 'created_time', secs => {
-        const date = new Date(secs * 1000);
-        const days = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
-        const day = days[date.getDay()];
-        return day;
+    const chartImgsIsEmpty = this.state.chartImgs.length === 0;
+    if (chartImgsIsEmpty) {
+      const chartImgs = recentImgs.map(img => {
+        const update = _.update(img, 'created_time', secs => {
+          const date = new Date(secs * 1000);
+          const days = ['Sun','Mon','Tues','Wed','Thurs','Fri','Sat'];
+          const day = days[date.getDay()];
+          return day;
+        });
+        return update;
       });
-      return update;
-    });
+      this.setState({ chartImgs });
+    }
 
-    if (loggedIn) {
       return (
         <div className="container">
 
@@ -36,27 +57,32 @@ class Dashboard extends Component {
             <Navigation data={userInfo} logout={logout} />
           </header>
 
-          <hr className="pb-5"/>
+          <hr className="pb-3"/>
 
-          <div>
-            <Likes
-              rankedImgs={rankedImgs}
-              chartImgs={chartImgs}
-              recentImgs={recentImgs} />
+          <div className="row justify-content-sm-center mb-3">
+            <div className="col">
+              <FeaturedImg img={featuredImg} />
+            </div>
           </div>
 
-          <div>
-            <AccountSummary data={userInfo} rankedImgs={rankedImgs} />
+
+          <div className="row">
+            <div className="col" style={styles.chart}>
+              <Chart
+                chartImgs={this.state.chartImgs}
+                setFeaturedImg={setFeaturedImg} />
+            </div>
           </div>
 
-          <footer>
+          <div className="row">
+            <div className="col">
+              <MostLiked rankedImgs={rankedImgs} />
+            </div>
+          </div>
 
-          </footer>
+
         </div>
       );
-    } else {
-      return <i className="fa fa-spinner 3x"></i>;
-    }
   }
 }
 

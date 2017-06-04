@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { firebaseAuth } from './config/constants';
+=======
+>>>>>>> client-side-app
 import $ from 'jquery';
 import _ from 'lodash';
 import './App.css';
@@ -27,14 +30,40 @@ export default class App extends Component {
       const accessToken = uri.replace('#access_token=', '');
       const userId = parseFloat(accessToken);
 
-      this.setState({ accessToken, userId }, () => {
-        this.requestInstaData();
-      });
+      // Set accessToken / userId and then request data
+      this.requestInstaData(accessToken, userId);
+
     }
+    window.location.hash = '';
   }
 
-  requestInstaData() {
-    const { userId, accessToken } = this.state;
+  render() {
+    const {
+      userInfo,
+      recentImgs,
+      featuredImg,
+      loggedIn
+    } = this.state;
+
+    return (
+      loggedIn ? (
+        <MuiThemeProvider>
+            <Dashboard
+              userInfo={userInfo}
+              recentImgs={recentImgs}
+              setFeaturedImg={this.setFeaturedImg}
+              featuredImg={featuredImg}
+              logout={this.logout} />
+        </MuiThemeProvider>
+      ) : (
+        <div>
+          <a href="/" className="btn btn-primary">Go Home</a>
+        </div>
+      )
+    )
+  }
+
+  requestInstaData(accessToken, userId) {
     const baseDomain = 'https://api.instagram.com/v1/';
 
     // Get request urls
@@ -47,9 +76,11 @@ export default class App extends Component {
       url: userUrl,
       crossDomain: true,
       success: function(response) {
-        this.setState({ userInfo: response.data, loggedIn: true })
+        this.setState({
+          userInfo: response.data
+        })
       }.bind(this),
-      dataType: "jsonp" //set to JSONP, is a callback
+      dataType: "jsonp"
     });
 
     // Request recent images
@@ -59,19 +90,23 @@ export default class App extends Component {
       crossDomain: true,
       success: function(response) {
         const recentImgs = _.reverse(response.data);
-        this.setState({ recentImgs })
+        this.setState({
+          recentImgs,
+          featuredImg: recentImgs[0],
+          loggedIn: true
+        })
       }.bind(this),
-      dataType: "jsonp" //set to JSONP, is a callback
+      dataType: "jsonp"
     });
   }
-
   logout = () => {
-    this.setSate({
+    this.setState({
       loggedIn: false,
       accessToken: '',
       userId: ''
     });
   }
+<<<<<<< HEAD
 
   render() {
     const { userInfo, recentImgs, loggedIn } = this.state;
@@ -84,5 +119,9 @@ export default class App extends Component {
           logout={this.logout} />
       </MuiThemeProvider>
     );
+=======
+  setFeaturedImg = (featuredImg, index) => {
+    this.setState({featuredImg});
+>>>>>>> client-side-app
   }
 }

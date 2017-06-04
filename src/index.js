@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+<<<<<<< HEAD
+=======
+import Router from './router';
+>>>>>>> client-side-app
 import './index.css';
 import Router from './router';
 
