@@ -6,7 +6,8 @@ import Paper from 'material-ui/Paper';
 // Styles
 const styles = {
   paper: {
-    width: 150
+    width: 150,
+    margin: 'auto'
   }
 }
 
@@ -18,7 +19,7 @@ class MostLiked extends Component {
       if (isTopFiveImg) {
         return (
           <div className="col" key={index}>
-            <Paper style="styles.paper" className="mb-3">
+            <Paper style={styles.paper} className="mb-3">
               <img src={img.images.thumbnail.url} alt={img.caption.text} />
             </Paper>
             <p><i className="fa fa-heart-o"></i> {img.likes.count}</p>
@@ -32,7 +33,7 @@ class MostLiked extends Component {
     return (
       <div>
         <p className="lead">Posts that generated the most likes</p>
-        <div className="row">
+        <div className="row text-center">
           {this.renderTopImgs()}
         </div>
       </div>
