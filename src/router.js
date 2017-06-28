@@ -11,7 +11,6 @@ export default class Router extends Component {
       <BrowserRouter>
         <div>
           <Route exact path="/" component={Home} />
-          <Route path="dashboard/:username" component={App} />
           <Route path="/dashboard" component={App} />
         </div>
       </BrowserRouter>
