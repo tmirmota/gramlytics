@@ -4,6 +4,7 @@ import _ from 'lodash'
 import './App.css'
 // Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import CircularProgress from 'material-ui/CircularProgress'
 // Components
 import Dashboard from './components/Dashboard'
 
@@ -35,19 +36,19 @@ export default class App extends Component {
   render() {
     const { userInfo, recentImgs, featuredImg, loggedIn } = this.state
 
-    return loggedIn
-      ? <MuiThemeProvider>
-          <Dashboard
-            userInfo={userInfo}
-            recentImgs={recentImgs}
-            setFeaturedImg={this.setFeaturedImg}
-            featuredImg={featuredImg}
-            logout={this.logout}
-          />
-        </MuiThemeProvider>
-      : <div>
-          <a href="/" className="btn btn-primary">Go Home</a>
-        </div>
+    return (
+      <MuiThemeProvider>
+        {loggedIn
+          ? <Dashboard
+              userInfo={userInfo}
+              recentImgs={recentImgs}
+              setFeaturedImg={this.setFeaturedImg}
+              featuredImg={featuredImg}
+              logout={this.logout}
+            />
+          : <CircularProgress color="#03A9F4" />}
+      </MuiThemeProvider>
+    )
   }
 
   requestInstaData(accessToken, userId) {
