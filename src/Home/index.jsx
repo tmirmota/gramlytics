@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './home.css'
 const Home = () => {
   const baseUrl = 'https://api.instagram.com/oauth/authorize/?'

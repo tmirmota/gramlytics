@@ -1,32 +1,33 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 // Material UI
-import Paper from 'material-ui/Paper';
+import Paper from 'material-ui/Paper'
 
 // Styles
 const styles = {
   paper: {
     width: 150,
-    margin: 'auto'
-  }
+    margin: 'auto',
+  },
 }
 
 class MostLiked extends Component {
   renderTopImgs() {
-    const { rankedImgs } = this.props;
+    const { rankedImgs } = this.props
     return rankedImgs.map((img, index) => {
-      const isTopFiveImg = index < 5;
+      const isTopFiveImg = index < 5
       if (isTopFiveImg) {
         return (
           <div className="col" key={index}>
             <Paper style={styles.paper} className="mb-3">
               <img src={img.images.thumbnail.url} alt={img.caption.text} />
             </Paper>
-            <p><i className="fa fa-heart-o"></i> {img.likes.count}</p>
+            <p><i className="fa fa-heart-o" /> {img.likes.count}</p>
           </div>
-        );
-      };
-    });
+        )
+      }
+      return null
+    })
   }
 
   render() {
@@ -37,8 +38,8 @@ class MostLiked extends Component {
           {this.renderTopImgs()}
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default MostLiked;
+export default MostLiked
