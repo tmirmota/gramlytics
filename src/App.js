@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import update from 'immutability-helper'
 import $ from 'jquery'
 import _ from 'lodash'
 import './App.css'
@@ -12,6 +13,7 @@ export default class App extends Component {
   state = {
     userInfo: {},
     recentImgs: [],
+    featured: { img: {}, title: 'Most Recent Post' },
     loggedIn: false,
 
     // Instagram account login info
@@ -59,9 +61,14 @@ export default class App extends Component {
       crossDomain: true,
       success: function(response) {
         const recentImgs = _.reverse(response.data)
+        console.log(recentImgs)
+        const featured = update(this.state.featured, {
+          img: { $set: recentImgs[recentImgs.length - 1] },
+        })
+
         this.setState({
           recentImgs,
-          featuredImg: recentImgs[0],
+          featured,
           loggedIn: true,
         })
       }.bind(this),
@@ -77,8 +84,12 @@ export default class App extends Component {
     })
   }
 
+  setFeaturedImg = img => {
+    this.setState({ featured: { img, title: 'Selected Post' } })
+  }
+
   render() {
-    const { userInfo, recentImgs, featuredImg, loggedIn } = this.state
+    const { userInfo, recentImgs, featured, loggedIn } = this.state
 
     return (
       <MuiThemeProvider>
@@ -87,7 +98,7 @@ export default class App extends Component {
               userInfo={userInfo}
               recentImgs={recentImgs}
               setFeaturedImg={this.setFeaturedImg}
-              featuredImg={featuredImg}
+              featured={featured}
               logout={this.logout}
             />
           : <CircularProgress color="#03A9F4" />}

@@ -33,12 +33,12 @@ class Dashboard extends Component {
     this.setState({ chartImgs })
   }
   render() {
-    // Dismount Props
+    // Destructure Props
     const {
       userInfo,
       recentImgs,
       setFeaturedImg,
-      featuredImg,
+      featured,
       logout,
     } = this.props
 
@@ -48,7 +48,8 @@ class Dashboard extends Component {
         return img.likes.count
       },
     ])
-    const rankedImgs = sortedImgs.reverse() // Sorted top liked images desc
+    // Sorted top liked images desc
+    const rankedImgs = sortedImgs.reverse()
 
     return (
       <div className="container">
@@ -61,7 +62,7 @@ class Dashboard extends Component {
 
         <div className="row justify-content-sm-center mb-3">
           <div className="col">
-            <FeaturedImg img={featuredImg} />
+            <FeaturedImg featured={featured} />
           </div>
         </div>
 

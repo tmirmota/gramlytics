@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import Paper from 'material-ui/Paper';
+import Paper from 'material-ui/Paper'
 
 // Styling
 const styles = {
   paper: {
-    width: 150
-  }
+    width: 150,
+  },
 }
 
 class FeaturedImg extends Component {
   render() {
-    const { img } = this.props;
+    const { img, title } = this.props.featured
     if (img) {
-      const alt = img.caption ? img.caption.text : 'Featured image';
+      const alt = img.caption ? img.caption.text : 'Featured image'
       return (
         <div className="row">
           <div className="col">
@@ -22,16 +22,16 @@ class FeaturedImg extends Component {
             </Paper>
           </div>
           <div className="col">
-            <h4>Selected Image</h4>
-            <p>Date posted: {img.created_time}</p>
+            <h4>{title}</h4>
+            <p>Day posted: {img.created_time}</p>
             <p>Likes: {img.likes.count}</p>
           </div>
         </div>
-      );
+      )
     } else {
-      return <i className="fa fa-spinner"></i>;
+      return <i className="fa fa-spinner" />
     }
   }
 }
 
-export default FeaturedImg;
+export default FeaturedImg
