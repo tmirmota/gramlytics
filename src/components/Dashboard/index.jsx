@@ -18,6 +18,20 @@ class Dashboard extends Component {
   state = {
     chartImgs: [],
   }
+  componentWillMount() {
+    const { recentImgs } = this.props
+    // Change 'created_time' to day of the week
+    const chartImgs = recentImgs.map(img => {
+      const update = _.update(img, 'created_time', secs => {
+        const date = new Date(secs * 1000)
+        const days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat']
+        const day = days[date.getDay()]
+        return day
+      })
+      return update
+    })
+    this.setState({ chartImgs })
+  }
   render() {
     // Dismount Props
     const {
@@ -35,21 +49,6 @@ class Dashboard extends Component {
       },
     ])
     const rankedImgs = sortedImgs.reverse() // Sorted top liked images desc
-
-    // Change 'created_time' to day of the week
-    const chartImgsIsEmpty = this.state.chartImgs.length === 0
-    if (chartImgsIsEmpty) {
-      const chartImgs = recentImgs.map(img => {
-        const update = _.update(img, 'created_time', secs => {
-          const date = new Date(secs * 1000)
-          const days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat']
-          const day = days[date.getDay()]
-          return day
-        })
-        return update
-      })
-      this.setState({ chartImgs })
-    }
 
     return (
       <div className="container">

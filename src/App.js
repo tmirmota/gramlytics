@@ -30,25 +30,6 @@ export default class App extends Component {
       // Set accessToken / userId and then request data
       this.requestInstaData(accessToken, userId)
     }
-    window.location.hash = ''
-  }
-
-  render() {
-    const { userInfo, recentImgs, featuredImg, loggedIn } = this.state
-
-    return (
-      <MuiThemeProvider>
-        {loggedIn
-          ? <Dashboard
-              userInfo={userInfo}
-              recentImgs={recentImgs}
-              setFeaturedImg={this.setFeaturedImg}
-              featuredImg={featuredImg}
-              logout={this.logout}
-            />
-          : <CircularProgress color="#03A9F4" />}
-      </MuiThemeProvider>
-    )
   }
 
   requestInstaData(accessToken, userId) {
@@ -87,11 +68,30 @@ export default class App extends Component {
       dataType: 'jsonp',
     })
   }
+
   logout = () => {
     this.setState({
       loggedIn: false,
       accessToken: '',
       userId: '',
     })
+  }
+
+  render() {
+    const { userInfo, recentImgs, featuredImg, loggedIn } = this.state
+
+    return (
+      <MuiThemeProvider>
+        {loggedIn
+          ? <Dashboard
+              userInfo={userInfo}
+              recentImgs={recentImgs}
+              setFeaturedImg={this.setFeaturedImg}
+              featuredImg={featuredImg}
+              logout={this.logout}
+            />
+          : <CircularProgress color="#03A9F4" />}
+      </MuiThemeProvider>
+    )
   }
 }
