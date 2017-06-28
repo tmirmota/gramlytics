@@ -1,17 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-<<<<<<< HEAD
-=======
-import Router from './router';
->>>>>>> client-side-app
-import './index.css';
-import Router from './router';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import Router from './router'
 
 // Needed for Material UI
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
+import injectTapEventPlugin from 'react-tap-event-plugin'
+injectTapEventPlugin()
 
-ReactDOM.render(
-  <Router />,
-  document.getElementById('root')
-);
+ReactDOM.render(<Router />, document.getElementById('root'))
