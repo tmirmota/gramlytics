@@ -1,9 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
 import Router from './router'
 
-// Needed for Material UI
+// Needed for Material UI on TouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
